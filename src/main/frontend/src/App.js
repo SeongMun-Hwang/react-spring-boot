@@ -3,7 +3,7 @@ import './App.css';
 import { useEffect, useState } from "react";
 
 function App() {
-  const [message, setMessage] = useState([]);
+  const [posts, setPosts] = useState([]);
 
   useEffect(() => {
     fetch("/hello")
@@ -11,27 +11,22 @@ function App() {
         return response.json();
       })
       .then(function (data) {
-        setMessage(data);
+        setPosts(data);
       });
   }, []);
 
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <h1>Api Test</h1><br />
         <ul>
-          {message.map((text, index) => <li key={`${index}-${text}`}>{text}</li>)}
+          {posts.map((post, index) => (
+            <li key={index}>
+              <h2>{post.title}</h2>
+              <p>{post.body}</p>
+              <br />
+            </li>
+          ))}
         </ul>
       </header>
     </div>

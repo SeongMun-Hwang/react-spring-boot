@@ -1,14 +1,19 @@
 package com.example.demo;
-import java.util.Arrays;
-import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @RestController
 public class TestController {
-        @GetMapping("hello")
-    public List<String> hello() {
-        return Arrays.asList("안녕하세요", "Hello");
+
+    @Autowired
+    private RestTemplate restTemplate;
+
+    @GetMapping("hello")
+    public Post[] hello() {
+        String url = "https://jsonplaceholder.typicode.com/posts";
+        return restTemplate.getForObject(url, Post[].class);
     }
 }
